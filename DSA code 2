@@ -1,1 +1,149 @@
+#include<iostream>
+#include<string.h>
+#define size 10
+#define false 0
+#define true 1
+#define h(x) x %size
+
+using namespace std;
+ 
+    struct data
+     {
+       int key;
+       int val;
+     };
+     
+    data d[10];
+  
+  void insert(data d[],int flag[],int x,int n);
+  int search(data d[],int flag[],int x);
+  void print(data d[],int flag[]);
+  void deletev(data d[],int flag[],int x);
+ 
+  int main()
+   {
+    int data[size],flag[size],i,j,x,op,loc,val;
+    int n;
+    for(i=0;i<size;i++)
+     flag[i]=false;
+     do{
+         cout<<"\n1.Insert \n2.search \n3.print \n4.delete \n4.Exit";
+         cout<<"\nEnter ur choice : ";
+         cin>>op;
+
+         switch(op)
+          {
+            case 1:
+                   cout<<"\nEnter a key : ";
+                   cin>>x;
+                   cout<<"\nEnter Value : ";
+                   cin>>n;
+                   insert(d,flag,x,n);
+                   break;
+
+           case 2:
+		   cout<<"\nEnter a key to be searched:  ";
+                   cin>>x;
+		   if((loc=search(d,flag,x))==-1)
+                   cout<<"\nElement not found";
+		   
+		   else
+		   cout<<"\nElement found at location : "<<loc;
+		   break;
+
+	  case 3:
+		  print(d,flag);
+		  break;
+
+          case 4:
+                 cout<<"\nEnter a key to be deleted : ";
+                 cin>>x;
+                 deletev(d,flag,x);
+                 break;
+           }
+        }while(op!=5);
+     }
+
+  
+ void insert(data d[],int flag[],int x,int n)
+    {
+     int i,j;
+     j=h(x);
+     
+     for(i=0;i<size;i++)
+      {
+        if(flag[j]==false)
+          {
+            d[j].key=x;
+            d[j].val=n;
+            flag[j]=true;
+            return;
+         }
+
+       
+         else
+         j=(j+1)%size;
+          
+	}
+	cout<<"hash table is full";
+           
+     }
+	
+
+
+
+
+
+ int search(data d[],int flag[],int x)
+  {
+  	int i,j;
+	 j=h(x);
+     
+      for(i=0;i<size;i++)
+         if(flag[j]==true && d[j].key==x)
+         return(j);
+       
+         else
+         j=(j+1)%size;
+          return(-1);
+
+           
+     }
+
+
+
+void print(data d[],int flag[])
+  {
+        int i;
+        for(i=0;i<size;i++)
+         if(flag[i]==true)
+         cout<<"\n("<<i<<")"<<d[i].val<<"\t"<<d[i].key;
+          else
+           cout<<"\n("<<i<<")"<<"-1"<<"\t-1";
+   }
+
+
+void deletev(data d[],int flag[],int x)
+  {
+      
+      int i,j;
+      j=h(x);
+      for(i=0;i<size;i++)
+      if(flag[j]==true && d[j].key==x)
+       {
+         d[j].val=-1;
+         d[j].key=-1;
+         flag[j]==false;
+       }
+     
+      else
+         j=(j+1)%size;
+       
+  }
+    
+
+/*
+
+
+
 
